@@ -47,7 +47,7 @@ bool TcpServer::start()
 
 int TcpServer::acceptConnections()
 {
-    int clientFd;
+    int clientFd, bytes;
     while (true)
     {
         if ((clientFd = accept(fd, nullptr, nullptr)) == -1)
@@ -58,12 +58,11 @@ int TcpServer::acceptConnections()
         {
             std::cout << "Connection accepted\n";
             std::vector<char> buf(MAX_BUFFER);
-            while (recv(clientFd, buf.data(), buf.size(), 0) != -1)
+            while ((bytes = recv(clientFd, buf.data(), buf.size(), 0)) > 0)
             {
                 std::cout << "Printing: ";
-                for (long unsigned int i = 0; i < buf.size(); i++)
+                for (int i = 0; i < bytes; i++)
                     std::cout << buf[i];
-                buf.clear();
             }
 
         }
