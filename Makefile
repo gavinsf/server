@@ -4,21 +4,26 @@ CXXFLAGS = -Wall -std=c++23
 TARGET = main
 
 SRC = src/main.cpp src/TcpServer.cpp
-OBJS = $(SRC:.cpp=.o)
+OBJDIR = build
+BINDIR = bin
+OBJS = $(patsubst src/%.cpp,$(OBJDIR)/%.o,$(SRC))
 
-all: $(TARGET)
+all: $(BINDIR)/$(TARGET)
 
-$(TARGET): $(OBJS)
-	$(CXX) $(CXXFLAGS) -o $(TARGET) $(OBJS)
+$(BINDIR)/$(TARGET): $(OBJS) | $(BINDIR)
+	$(CXX) $(CXXFLAGS) -o $@ $(OBJS)
 
-
-%.o: %.cpp
+$(OBJDIR)/%.o: src/%.cpp | $(OBJDIR)
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
+$(OBJDIR):
+	mkdir -p $(OBJDIR)
 
-run: $(TARGET)
-	./$(TARGET)
+$(BINDIR):
+	mkdir -p $(BINDIR)
 
+run: $(BINDIR)/$(TARGET)
+	./$(BINDIR)/$(TARGET)
 
 clean:
-	rm -f src/*.o $(TARGET)
+	rm -rf $(OBJDIR)/* $(BINDIR)/*
