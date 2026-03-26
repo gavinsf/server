@@ -57,7 +57,7 @@ int TcpServer::acceptConnections()
         else
         {
             std::cout << "Connection accepted\n";
-            std::vector<char> buf(MAX_BUFFER);
+            std::vector<std::string> buf(MAX_BUFFER);
             while ((bytes = recv(clientFd, buf.data(), buf.size(), 0)) > 0)
             {
                 std::cout << "Printing: ";
