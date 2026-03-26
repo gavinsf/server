@@ -1,7 +1,8 @@
 #include "../include/Method.h"
+#include <string_view>
+#include <optional>
 
-
-const std::string MethodUtils::toString(Method m)
+std::string_view MethodUtils::toString(Method m) noexcept
 {
     switch (m)
     {
@@ -10,10 +11,8 @@ const std::string MethodUtils::toString(Method m)
     }
 }
 
-Method MethodUtils::fromString(const std::string& str)
+std::optional<Method> MethodUtils::fromString(std::string_view str) noexcept
 {
-    if (str == MethodUtils::toString(Method::GET))
-    {
-        return Method::Get
-    }
+    if (str == "GET")       return Method::GET;
+    return std::nullopt
 }

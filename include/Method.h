@@ -1,10 +1,15 @@
 #pragma once
 
-enum class Method {
+#include <string_view>
+#include <optional>
+
+enum class Method 
+{
     GET
 };
 
-namespace MethodUtils {
-    const std::string toString(Method m);
-    Method MethodUtils::fromString(const std::string& str);
+namespace MethodUtils 
+{
+    constexpr std::string_view MethodUtils::toString(Method m) noexcept
+    std::optional<Method> MethodUtils::fromString(std::string_view str) noexcept;
 }
