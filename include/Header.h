@@ -3,6 +3,7 @@
 #include <string_view>
 #include <string>
 #include <vector>
+#include <span>
 
 struct HeaderPos 
 {
@@ -25,5 +26,5 @@ class Header
     public:
     Header(std::string raw);
     void parse();
-    std::vector<HeaderPos> get_headers_pos();
+    std::span<const HeaderPos> get_headers_pos();
 };

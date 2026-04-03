@@ -28,4 +28,4 @@ void Header::parse()
     }
 }
 
-std::vector<HeaderPos> Header::get_headers_pos() { return headers; }
+std::span<const HeaderPos> Header::get_headers_pos() { return headers; }
